@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 # ======================================================
 # Tabela de Frequências (Absoluta, Relativa e Acumulada)
@@ -52,7 +53,7 @@ def frequencias_cat(dataframe,coluna,ordem=None):
 def frequencias_num(dataframe, coluna,faixa):
     
     """
-     Objetivo: Criar agrupamento por faixas para variáveis quantitativas e tabela de frequências (Absoluta, Relativa e Acumulada)
+    Objetivo: Criar agrupamento por faixas para variáveis quantitativas e tabela de frequências (Absoluta, Relativa e Acumulada)
     
     Parâmetros: 
         dataframe = DataFrame Pandas
@@ -84,3 +85,38 @@ def frequencias_num(dataframe, coluna,faixa):
     tb['Frequência Acumulada %'] = tb['Frequência Relativa %'].cumsum()
     
     return tb
+
+
+# ================
+# Gráfico de Pizza
+# ================
+
+def pie_plot(dataframe,coluna,titulo):
+    """
+    Objetivo: Gerar um gráfico de pizza
+    
+    Parâmetros: 
+        dataframe = DataFrame Pandas
+        coluna = String
+        faixa = int
+        
+    Retorno 
+        Gráfico de Pizza
+        
+    Exemplo:
+        pie_plot(df,'Coluna','Título')
+    """
+    
+    labels = [dataframe[coluna][0],dataframe[coluna][1]]
+
+    freq = [dataframe['Frequência Absoluta'][0],dataframe['Frequência Absoluta'][1]]  
+
+    fig, ax = plt.subplots(figsize=(3,3))
+
+    ax.pie(freq, autopct='%1.1f%%', colors=['Red','Green'], explode=(0,.1), startangle=90)
+
+    ax.set_title(titulo)
+
+    ax.legend(bbox_to_anchor=(1, 0, 0.5,1), loc='center left', labels=labels)
+
+    plt.show()
