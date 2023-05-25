@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # ======================================================
 # Tabela de Frequências (Absoluta, Relativa e Acumulada)
@@ -97,14 +98,14 @@ def pie_plot(dataframe,coluna,titulo):
     
     Parâmetros: 
         dataframe = DataFrame Pandas
-        coluna = String
-        faixa = int
+        coluna = String nome da coluna
+        faixa = int faixa 
         
     Retorno 
         Gráfico de Pizza
         
     Exemplo:
-        pie_plot(df,'Coluna','Título')
+        pie_plot(dataframe,coluna,titulo)
     """
     
     labels = [dataframe[coluna][0],dataframe[coluna][1]]
@@ -112,11 +113,41 @@ def pie_plot(dataframe,coluna,titulo):
     freq = [dataframe['Frequência Absoluta'][0],dataframe['Frequência Absoluta'][1]]  
 
     fig, ax = plt.subplots(figsize=(3,3))
+    
+    colors = sns.light_palette('seagreen')
 
-    ax.pie(freq, autopct='%1.1f%%', colors=['Red','Green'], explode=(0,.1), startangle=90)
+    ax.pie(freq, autopct='%1.1f%%', colors=colors, explode=(0,.1), startangle=90)
 
     ax.set_title(titulo)
 
     ax.legend(bbox_to_anchor=(1, 0, 0.5,1), loc='center left', labels=labels)
 
+    plt.show()
+    
+    
+    
+# ================
+# Gráfico de Barra
+# ================  
+    
+def bar_plot(dataframe,eixo_x, eixo_y,titulo):
+    """
+    Objetivo: Gerar um gráfico de barra
+    
+    Parâmetros: 
+        dataframe = DataFrame Pandas
+        eixo_x, eixo_y = String nome das colunas do eixo_x e eixo_y
+        titulo = String título do gráfico
+        
+    Retorno 
+        Gráfico de Barra
+        
+    Exemplo:
+        pie_plot(df,eixo_x, eixo_y,titulo)
+    """
+    
+    fig, ax = plt.subplots(figsize=(6,3))
+    ax.set_title(titulo)
+    ax.
+    sns.barplot(dataframe, x=eixo_x, y=eixo_y, palette=sns.light_palette("seagreen"))
     plt.show()
